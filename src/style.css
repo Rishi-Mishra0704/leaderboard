@@ -5,6 +5,8 @@ body {
 
 h1 {
   display: inline-block;
+  margin: 20px 0 10px 100px;
+  font-size: 40px;
 }
 
 #score-container {
