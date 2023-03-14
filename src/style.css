@@ -1,21 +1,69 @@
-body{
-    margin: 0;
-    padding: 0;
+body {
+  margin: 0;
+  padding: 0;
 }
 
-h1{
-    float: left;
+h1 {
+  float: left;
 }
-#score-container{
-    display: flex;
-    flex-direction: column;
+
+#score-container {
+  font-size: 20px;
+  margin: 20px 0 20px 100px;
+  display: flex;
+  flex-direction: column;
 }
-.refresh{
-    margin-top:30px ;
-    display: flex;
-    padding:0 50px;
+
+.refresh {
+  margin-top: 30px;
+  display: flex;
+  padding: 0 50px;
 }
-.input-scores{
-    padding:0 40px;
-float: right;
+
+.refresh button {
+  font-size: 18px;
+  height: 30px;
+  width: 80px;
+  margin-top: 29px;
+  margin-left: 10px;
+  background: transparent;
+
+  /* outline: none; */
+}
+
+.scores {
+  width: 30%;
+  border: 2px solid black;
+  margin: 30px;
+}
+
+.input-scores {
+  font-size: 30px;
+  margin: 20px 100px 20px 0;
+  position: absolute;
+  right: 0;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px;
+  float: right;
+}
+
+.input-scores input {
+  margin: 10px;
+  height: 30px;
+  width: 150px;
+  margin-right: 70px;
+}
+
+.input-scores button {
+  font-size: 20px;
+  height: 30px;
+  width: 80px;
+  margin-top: 17.5px;
+  margin-left: 10px;
+  background: transparent;
+  display: flex;
+  align-self: flex-end;
+  margin-right: 80px;
 }
