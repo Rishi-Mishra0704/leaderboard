@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    float: left;
+}
+#score-container{
+    display: flex;
+    flex-direction: column;
+}
+.refresh{
+    margin-top:30px ;
+    display: flex;
+    padding:0 50px;
+}
+.input-scores{
+    padding:0 40px;
+float: right;
+}
