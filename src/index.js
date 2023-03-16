@@ -89,7 +89,6 @@ const handleSubmit = async () => {
       await submitScore(name, score);
       nameInput.value = '';
       scoreInput.value = '';
-      await updateScores();
     } catch (error) {
       throw new Error('Error submitting score:', error.message);
     }
@@ -99,7 +98,6 @@ const handleSubmit = async () => {
 const initializeGame = async () => {
   try {
     await createGame('My Game');
-    await updateScores();
   } catch (error) {
     throw new Error('Error initializing game:', error.message);
   }
