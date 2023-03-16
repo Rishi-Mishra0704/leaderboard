@@ -1,7 +1,7 @@
 import './style.css';
 
 const API_URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';
-let gameId = 'Zl4d7IVkemOTTVg2fUdz';
+const gameId = 'Zl4d7IVkemOTTVg2fUdz';
 
 const createGame = async (gameName) => {
   const response = await fetch(`${API_URL}/games`, {
@@ -14,7 +14,9 @@ const createGame = async (gameName) => {
 
   const data = await response.json();
 
-  gameId = data.result;
+  if (!data || !data.result) {
+    throw new Error('Invalid response from server');
+  }
 };
 
 const getScores = async () => {
@@ -34,8 +36,7 @@ const submitScore = async (name, score) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ name, score }),
-
+    body: JSON.stringify({ user: name, score }),
   });
 
   const data = await response.json();
@@ -55,22 +56,28 @@ const scoreInput = document.getElementById('score');
 
 let scores = [];
 
-const updateScores = (scoresArray) => {
-  scoresDiv.innerHTML = '';
+const updateScores = async () => {
+  try {
+    const data = await getScores();
+    scores = data;
+    scoresDiv.innerHTML = '';
 
-  scoresArray.forEach((score) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<div class = "displayed-score">${score.user}: ${score.score}</div><hr class="dash">`;
-    scoresDiv.appendChild(div);
-  });
+    scores.forEach((score) => {
+      const div = document.createElement('div');
+      div.innerHTML = `<div class="displayed-score">${score.user}: ${score.score}</div><hr class="dash">`;
+      scoresDiv.appendChild(div);
+    });
+  } catch (error) {
+    throw new Error('Error updating scores:', error.message);
+  }
 };
 
 const handleRefresh = async () => {
   try {
-    scores = await getScores();
-    updateScores(scores);
+    await updateScores();
+    throw new Error('Scores updated successfully');
   } catch (error) {
-    throw new Error('Error fetching scores:', error);
+    throw new Error('Error refreshing scores:', error.message);
   }
 };
 
@@ -81,12 +88,11 @@ const handleSubmit = async () => {
   if (name && score) {
     try {
       await submitScore(name, score);
-      scores = await getScores();
       nameInput.value = '';
       scoreInput.value = '';
-      updateScores(scores);
+      await updateScores();
     } catch (error) {
-      throw new Error('Error submitting score:', error);
+      throw new Error('Error submitting score:', error.message);
     }
   }
 };
@@ -94,10 +100,9 @@ const handleSubmit = async () => {
 const initializeGame = async () => {
   try {
     await createGame('My Game');
-    scores = await getScores();
-    updateScores(scores);
+    await updateScores();
   } catch (error) {
-    throw new Error('Error initializing game:', error);
+    throw new Error('Error initializing game:', error.message);
   }
 };
 
