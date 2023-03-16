@@ -75,7 +75,6 @@ const updateScores = async () => {
 const handleRefresh = async () => {
   try {
     await updateScores();
-    throw new Error('Scores updated successfully');
   } catch (error) {
     throw new Error('Error refreshing scores:', error.message);
   }
