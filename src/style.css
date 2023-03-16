@@ -37,6 +37,11 @@ h1 {
   margin: 30px;
 }
 
+.displayed-score {
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
 .input-scores {
   font-size: 30px;
   margin: 20px 100px 20px 0;
